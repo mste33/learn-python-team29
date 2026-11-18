@@ -336,3 +336,32 @@ def test_nested_list_comprehensions():
         (3, 7, 11),
         (4, 8, 12),
     ]
+
+
+def test_list_sorting():
+    """List sorting.
+
+    @see: https://docs.python.org/3/howto/sorting.html
+    """
+
+    numbers = [5, 2, 9, 1, 7]
+
+    # sorted() returns a new list, the original is unchanged
+    assert sorted(numbers) == [1, 2, 5, 7, 9]
+    assert numbers == [5, 2, 9, 1, 7]
+
+    # sort() sorts in place and returns None
+    result = numbers.sort()
+    assert result is None
+    assert numbers == [1, 2, 5, 7, 9]
+
+    # reverse=True sorts in descending order
+    assert sorted(numbers, reverse=True) == [9, 7, 5, 2, 1]
+
+    # key=len sorts by word length
+    words = ['banana', 'kiwi', 'apple', 'fig']
+    assert sorted(words, key=len) == ['fig', 'kiwi', 'apple', 'banana']
+
+    # Sorting is stable: equal keys keep their original order
+    fruits = ['kiwi', 'banana', 'pear', 'fig']
+    assert sorted(fruits, key=len) == ['fig', 'kiwi', 'pear', 'banana']
