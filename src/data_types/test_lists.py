@@ -365,3 +365,26 @@ def test_list_sorting():
     # Sorting is stable: equal keys keep their original order
     fruits = ['kiwi', 'banana', 'pear', 'fig']
     assert sorted(fruits, key=len) == ['fig', 'kiwi', 'pear', 'banana']
+
+
+def test_list_filtering():
+    """List filtering."""
+
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # A list comprehension with an if keeps only matching items
+    evens = [number for number in numbers if number % 2 == 0]
+    assert evens == [2, 4, 6, 8, 10]
+
+    # filter() does the same with a function; wrap it in list() to get a list
+    assert list(filter(lambda number: number % 2 == 0, numbers)) == evens
+
+    # Conditions can be combined
+    assert [number for number in numbers if number > 3 and number < 7] == [4, 5, 6]
+
+    # Filtering returns a new list, the original is unchanged
+    assert numbers == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # Filtering out empty strings, since they count as False
+    names = ['Ana', '', 'Ben', '']
+    assert [name for name in names if name] == ['Ana', 'Ben']
