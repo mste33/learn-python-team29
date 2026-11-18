@@ -336,3 +336,55 @@ def test_nested_list_comprehensions():
         (3, 7, 11),
         (4, 8, 12),
     ]
+
+
+def test_list_sorting():
+    """List sorting.
+
+    @see: https://docs.python.org/3/howto/sorting.html
+    """
+
+    numbers = [5, 2, 9, 1, 7]
+
+    # sorted() returns a new list, the original is unchanged
+    assert sorted(numbers) == [1, 2, 5, 7, 9]
+    assert numbers == [5, 2, 9, 1, 7]
+
+    # sort() sorts in place and returns None
+    result = numbers.sort()
+    assert result is None
+    assert numbers == [1, 2, 5, 7, 9]
+
+    # reverse=True sorts in descending order
+    assert sorted(numbers, reverse=True) == [9, 7, 5, 2, 1]
+
+    # key=len sorts by word length
+    words = ['banana', 'kiwi', 'apple', 'fig']
+    assert sorted(words, key=len) == ['fig', 'kiwi', 'apple', 'banana']
+
+    # Sorting is stable: equal keys keep their original order
+    fruits = ['kiwi', 'banana', 'pear', 'fig']
+    assert sorted(fruits, key=len) == ['fig', 'kiwi', 'pear', 'banana']
+
+
+def test_list_filtering():
+    """List filtering."""
+
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # A list comprehension with an if keeps only matching items
+    evens = [number for number in numbers if number % 2 == 0]
+    assert evens == [2, 4, 6, 8, 10]
+
+    # filter() does the same with a function; wrap it in list() to get a list
+    assert list(filter(lambda number: number % 2 == 0, numbers)) == evens
+
+    # Conditions can be combined
+    assert [number for number in numbers if number > 3 and number < 7] == [4, 5, 6]
+
+    # Filtering returns a new list, the original is unchanged
+    assert numbers == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # Filtering out empty strings, since they count as False
+    names = ['Ana', '', 'Ben', '']
+    assert [name for name in names if name] == ['Ana', 'Ben']
